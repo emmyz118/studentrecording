@@ -36,7 +36,7 @@ const UpdateStudent=()=>{
             setIsloading(false);
             setTimeout(()=>{
                 navigate("/students");
-            },2000)
+            },3000)
         }
 
         
@@ -75,9 +75,10 @@ const UpdateStudent=()=>{
                 <button className="btn btn-success mt-3 float-end">{isloading?"Updating....":"Update"}</button>
             </div>
 
-                {success&&<p className="text-success">{success}</p>}
+                
             
         </form>
+        {success&&<p className="text-success mt-5">{success}</p>}
         </center>
 
         </>

@@ -63,7 +63,7 @@ export const updateStudent=(req,res)=>{
          if (error) {
             res.send(error.sqlMessage);
          }
-         res.json({success:"student with id ["+id+"] is updated"});
+         res.json({success:"student is updated"});
      })
  }
 

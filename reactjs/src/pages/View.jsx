@@ -39,7 +39,10 @@ async function getStudents() {
             <h1>Recorded students</h1>
             {
             isloading&&
+            <>
             <h4 className="mt-5">Loading data from server</h4>
+            <img src="loading-spinner.gif" alt="no spinner" />
+            </>
             }
         </center>
             <div>
@@ -65,10 +68,9 @@ async function getStudents() {
 
                                         const resp= await axios.post(`https://studentrecording.onrender.com/delete/${res.sid}`);
                                     if (resp.data.success) {
-                                        Setsuccess(resp.data.success)
-                                        setTimeout(()=>{
-                                            navigate("/students")
-                                        },2000)
+                                        alert("student deleted now");
+                                        getStudents();
+                                        
                                     }
                                     }
                                     catch(error){
