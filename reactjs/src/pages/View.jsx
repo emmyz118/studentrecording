@@ -10,7 +10,7 @@ const [success,Setsuccess]=useState();
 const navigate=useNavigate()
 async function getStudents() {
         try{
-            const resp=await axios.get("http://localhost:4000/students");
+            const resp=await axios.get("https://studentrecording.onrender.com/students");
             if (resp.data.error) {
                 setError(error)
             }
@@ -57,7 +57,7 @@ async function getStudents() {
                                     e.preventDefault();
                                        try{
 
-                                        const resp= await axios.post(`http://localhost:4000/delete/${res.sid}`);
+                                        const resp= await axios.post(`https://studentrecording.onrender.com/delete/${res.sid}`);
                                     if (resp.data.success) {
                                         Setsuccess(resp.data.success)
                                         setTimeout(()=>{
