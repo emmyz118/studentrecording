@@ -41,7 +41,7 @@ async function getStudents() {
             isloading&&
             <>
             <h4 className="mt-5">Loading data from server</h4>
-            <img src="/loading-spinner.gif" alt="no spinner" />
+            <img src="/loading-spinner.gif" width="80px" height="20px" alt="no spinner" />
             </>
             }
         </center>
