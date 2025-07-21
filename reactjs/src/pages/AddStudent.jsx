@@ -1,5 +1,6 @@
 import { useState } from "react"
 import axios from "axios"
+import { useNavigate } from "react-router-dom"
 const AddSt=()=>{
     const [fname,setFname ] = useState("")
     const [lname,setLname ] = useState("")
@@ -7,6 +8,7 @@ const AddSt=()=>{
     const [phone,setPhone] = useState("")
     const [err,setErr]=useState(false);
     const [success,setSuccess]=useState(false);
+    const navigate=useNavigate()
     async function handleSubmit(e) {
         e.preventDefault();
         const resp=await axios.post("https://studentrecording.onrender.com/insert",{f_name:fname,l_name:lname,email:email,phone:phone})
@@ -20,6 +22,9 @@ const AddSt=()=>{
             setFname("");
             setLname("");
             setPhone("");
+            setTimeout(()=>{
+                navigate("/students");
+            })
         }
 
     }

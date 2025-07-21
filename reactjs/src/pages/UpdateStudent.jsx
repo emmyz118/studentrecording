@@ -34,6 +34,9 @@ const UpdateStudent=()=>{
         if (res.data.success) {
             setSuccess(res.data.success)
             setIsloading(false);
+            setTimeout(()=>{
+                navigate("/students");
+            },2000)
         }
 
         
