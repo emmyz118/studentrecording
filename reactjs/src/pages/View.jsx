@@ -8,9 +8,11 @@ const [nodata,setNodata]=useState(false)
 const [result,setResult]=useState([]);
 const [success,Setsuccess]=useState();
 const navigate=useNavigate()
+const [isloading,setIsloading]=useState(true)
 async function getStudents() {
         try{
             const resp=await axios.get("https://studentrecording.onrender.com/students");
+            setIsloading(false)
             if (resp.data.error) {
                 setError(error)
             }
@@ -35,6 +37,10 @@ async function getStudents() {
         <>
         <center>
             <h1>Recorded students</h1>
+            {
+            isloading&&
+            <h4 className="mt-5">Loading data from server</h4>
+            }
         </center>
             <div>
                 <center>
