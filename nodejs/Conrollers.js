@@ -149,7 +149,7 @@ export const updateStudent=(req,res)=>{
                 res.json({sqlerror:"Error while retrieving"})
             }
             else{
-                if (result.length==0) {
+                if (result.length<1) {
                     res.json({error:"User not found"})
                 }
                 else{

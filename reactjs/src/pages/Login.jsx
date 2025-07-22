@@ -22,7 +22,7 @@ const Login =()=>{
                 setAxiosError(false)
             }
             else{
-                setSuccess(resp.data.success)
+                setSuccess(resp.data.loginsuccess)
                 setUserError(false)
                 setAxiosError(false)
                 setLoadingLogin(true)
@@ -60,8 +60,11 @@ const Login =()=>{
                 </div>
                 <div className="mt-3">
                     {loadingLogin?<button className="btn btn-primary rounded-0" disabled >Wait..</button>:<button className="btn btn-primary rounded-0">Login</button>  } 
+                    {!loadingLogin&&
+                    <>
                     <span className="px-5">Or</span>
-                    {!loadingLogin&&<Link to="/create_account">Create new account</Link>} 
+                    <Link to="/create_account">Create new account</Link>
+                    </>} 
                 </div>
                </center>
             </form>
