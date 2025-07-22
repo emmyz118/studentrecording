@@ -7,7 +7,9 @@ const Login =()=>{
     const [password,setPassword]=useState("");
     const [axioserror,setAxiosError]=useState(false)
     const [userError,setUserError]=useState(false)
+    const [usernotfound,setUserNotfound]=useState(false)
     const [success,setSuccess]=useState(false)
+
     const navigate=useNavigate()
     const [loadingLogin,setLoadingLogin]=useState(false)
    
@@ -20,6 +22,12 @@ const Login =()=>{
                 setUserError(resp.data.error)
                 setSuccess(false)
                 setAxiosError(false)
+            }
+            else if (resp.data.error) {
+                setSuccess(false)
+                setUserError(false)
+                setAxiosError(false)
+                setUserNotfound(true)
             }
             else{
                 setSuccess(resp.data.loginsuccess)
@@ -70,6 +78,7 @@ const Login =()=>{
             </form>
             {(userError)&&<div className="alert alert-info bg-warning col-lg-4 mt-3 text-dark"><p className="mt-3">{userError}</p></div>}
             {(axioserror)&&<div className="alert alert-info bg-warning col-lg-4 mt-3 text-dark"><p className="mt-3">{axioserror}</p></div>}
+            {(usernotfound)&&<div className="alert alert-info bg-warning col-lg-4 mt-3 text-dark"><p className="mt-3">{usernotfound}</p></div>}
             {(success)&&<div className="alert alert-info bg-warning col-lg-4 mt-3 text-dark"><p className="mt-3">{success}</p></div>}
         </center>
         </>

@@ -150,7 +150,7 @@ export const updateStudent=(req,res)=>{
             }
             else{
                 if (result.length<1) {
-                    res.json({error:"User not found"})
+                    res.json({notfound:"User not found"})
                 }
                 else{
                     const compared= await bcrypt.compare(password,result[0].password);
