@@ -1,5 +1,7 @@
 import connection from "./config/db.js"
 import Joi from "joi"
+import bcrypt from "bcrypt"
+import { json } from "express"
 export const index=(req,res)=>{
     res.json({mess:'hello'})
 }
@@ -67,7 +69,7 @@ export const updateStudent=(req,res)=>{
      })
  }
 
- export const DeleteStudent=(req,res)=>{
+ export const DeleteStudent=async (req,res)=>{
     const id=req.params.id
     connection.query("DELETE FROM students where sid=?",[id],(error,result)=>{
         if (error) {
@@ -79,3 +81,92 @@ export const updateStudent=(req,res)=>{
         
     })
  }
+ export const CreateUser= async (req,res)=>{
+    const dataschema=Joi.object({
+        "username":Joi.string().max(20).required(),
+        "password":Joi.string()
+        .min(8)
+        .max(20)
+        .pattern(
+            new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*[1-9])(?=.*[!?:@."])')
+        )
+        .messages({
+           "string.pattern.base":"your password is weak ( You must include atleast one lowercase, one uppercase, 1 digit and one symbol)",
+           "string.min":"minimum length of string must be 8 characters long",
+           "string.max":"maximum length of string must be 20 characters long"
+        })
+    })
+    const {value,error}=dataschema.validate(req.body);
+    if (error) {
+        res.json({errorr:error.details[0].message})
+    }
+    else{
+        const {username,password}=value;
+        const hashedpassword= await bcrypt.hash(password,12);
+        connection.query("SELECT * FROM users where username=?",[username],(selecterror,result)=>{
+            if (selecterror) {
+               res.json({fetcherror:selecterror.sqlMessage}) 
+            }
+            else{
+                if (result.length==0) {
+                    connection.query("INSERT INTO users(`username`, `password`) values(?,?)",[username,hashedpassword],(inserterror,insresult)=>{
+                        if (inserterror) {
+                            res.json({inserterror:inserterror.sqlMessage})
+                        }
+                        else{
+                            res.json({success:"New user created now"})
+                        }
+                    })
+                }
+                else{
+                    res.json({errorr:"user already exists"})
+                }
+            }
+        })
+    }
+ }
+
+
+ export const Login=(req,res)=>{
+    const dataschema=Joi.object({
+        "username":Joi.string().max(20).required()
+        .messages({
+            "string.required":"All fields are not allowed to be empty",
+         }),
+        "password":Joi.string()
+        .messages({
+           "string.required":"All fields are not allowed to be empty",
+        }).required(),
+    })
+    const {value,error}=dataschema.validate(req.body)
+    if (error) {
+        res.json({error:error.details[0].message})
+    }
+    else{
+        const {username,password}=value;
+        connection.query("SELECT * from users where username=?",[username],async (errorfet,result)=>{
+            if (errorfet) {
+                res.json({sqlerror:"Error while retrieving"})
+            }
+            else{
+                if (result.length==0) {
+                    res.json({error:"User not found"})
+                }
+                else{
+                    const compared= await bcrypt.compare(password,result[0].password);
+                    if (compared) {
+                        res.json({loginsuccess:"you are logged in"})
+                    }
+                    else{
+                        res.json({error:"Credentials not match"})
+                    }
+                }
+            }
+        })
+    }
+      
+ }
+
+
+
+

@@ -11,7 +11,7 @@ const Header=({title})=>{
             <div className="nav">
                     <ul className="nav">
                         <li className="nav-item">
-                            <Link to={"/"} className="nav-link text-white-50">Home</Link>
+                            <Link to={"/home"} className="nav-link text-white-50">Home</Link>
                             
                         </li>
                         <li className="nav-item">

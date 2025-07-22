@@ -9,6 +9,8 @@ import View from './pages/View';
 import NotFound from './pages/NotFound';
 import UpdateStudent from './pages/UpdateStudent';
 import AddSt from './pages/AddStudent';
+import Login from './pages/Login';
+import CreateAccount from './pages/CreateAccount';
 const router=createBrowserRouter([
   {
     path:"/",
@@ -16,6 +18,14 @@ const router=createBrowserRouter([
     children:[
       {
         path:"/",
+        element:<Login/>
+      },
+      {
+        path:"/create_account",
+        element:<CreateAccount/>
+      },
+      {
+        path:"/home",
         element:<Home/>
       },
       {

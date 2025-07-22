@@ -12,7 +12,8 @@ const UpdateStudent=()=>{
     const navigate=useNavigate()
     async function getStudent() {
        try{
-        const res=await axios.get(`https://studentrecording.onrender.com/students/${id}`);
+        const res=await axios.get(`http://localhost:4000/students/${id}`);
+        // const res=await axios.get(`https://studentrecording.onrender.com/students/${id}`);
         if (res.data.error) {
             setError(error)
         }
@@ -30,7 +31,8 @@ const UpdateStudent=()=>{
     async function SubmitStudent(e) {
         e.preventDefault();
         setIsloading(true);
-        const res=await axios.post(`https://studentrecording.onrender.com/update/${id}`,{f_name:student.fname,l_name:student.lname,email:student.email,phone:student.phone});
+        const res=await axios.post(`http://localhost:4000/update/${id}`,{f_name:student.fname,l_name:student.lname,email:student.email,phone:student.phone});
+        // const res=await axios.post(`https://studentrecording.onrender.com/update/${id}`,{f_name:student.fname,l_name:student.lname,email:student.email,phone:student.phone});
         if (res.data.success) {
             setSuccess(res.data.success)
             setIsloading(false);

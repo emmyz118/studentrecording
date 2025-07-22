@@ -11,7 +11,8 @@ const AddSt=()=>{
     const navigate=useNavigate()
     async function handleSubmit(e) {
         e.preventDefault();
-        const resp=await axios.post("https://studentrecording.onrender.com/insert",{f_name:fname,l_name:lname,email:email,phone:phone})
+        const resp=await axios.post("http://localhost:4000/insert",{f_name:fname,l_name:lname,email:email,phone:phone})
+        // const resp=await axios.post("https://studentrecording.onrender.com/insert",{f_name:fname,l_name:lname,email:email,phone:phone})
         if (resp.data.error) {
             setErr(resp.data.error)
         }

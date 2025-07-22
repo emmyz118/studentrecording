@@ -11,7 +11,8 @@ const navigate=useNavigate()
 const [isloading,setIsloading]=useState(true)
 async function getStudents() {
         try{
-            const resp=await axios.get("https://studentrecording.onrender.com/students");
+            const resp=await axios.get("http://localhost:4000/students");
+            // const resp=await axios.get("https://studentrecording.onrender.com/students");
             setIsloading(false)
             if (resp.data.error) {
                 setError(error)
@@ -53,12 +54,13 @@ async function getStudents() {
                 {result.map((res,index)=>(
                     <>    
                         <div className="col-lg-4 mt-5">
-                            <div className="card">
+                            <div className="card" key={index}>
                                 <div className="card-header bg-secondary text-white">
-                                <p key={index}>{res.lname}</p>
+                                <p>{res.lname+" "+res.fname}</p>
                                 </div>
                                 <div className="card-body">
-                                <p key={index}>{res.email}</p>
+                                <p><i className="fa fa-envelope"></i> {res.email}</p>
+                                <p><i className="fa fa-phone"></i> {res.phone}</p>
                                 </div>
                                 <div className="card-footer">
                                 <Link to={'/edit/'+res.sid} className="btn btn-info"><i className="fa fa-edit text-white"></i></Link>
