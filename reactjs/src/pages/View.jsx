@@ -11,8 +11,8 @@ const navigate=useNavigate()
 const [isloading,setIsloading]=useState(true)
 async function getStudents() {
         try{
-            const resp=await axios.get("http://localhost:4000/students");
-            // const resp=await axios.get("https://studentrecording.onrender.com/students");
+            // const resp=await axios.get("http://localhost:4000/students");
+            const resp=await axios.get("https://studentrecording.onrender.com/students");
             setIsloading(false)
             if (resp.data.error) {
                 setError(error)

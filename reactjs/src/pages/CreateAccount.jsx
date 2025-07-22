@@ -13,7 +13,8 @@ const CreateAccount=()=>{
     async function handleCreate(e) {
         e.preventDefault();
         try{
-        const resp=await axios.post(`http://localhost:4000/create_account`,{username:username,password:password});
+        // const resp=await axios.post(`http://localhost:4000/create_account`,{username:username,password:password});
+        const resp=await axios.post(`https://studentrecording.onrender.com/create_account`,{username:username,password:password})
         if (resp.data.errorr) {
             setUserError(resp.data.errorr)
             setSuccess(false)
