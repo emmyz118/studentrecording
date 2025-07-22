@@ -23,7 +23,7 @@ const Login =()=>{
                 setAxiosError(false)
             }
             else if (resp.data.loginsuccess) {
-                setSuccess(resp.data.)
+                setSuccess(resp.data.loginsuccess)
                 setUserError(false)
                 setAxiosError(false)
                 setLoadingLogin(true)
